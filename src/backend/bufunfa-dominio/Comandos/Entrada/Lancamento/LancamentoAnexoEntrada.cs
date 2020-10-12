@@ -39,25 +39,13 @@ namespace JNogueira.Bufunfa.Dominio.Comandos
             this.ConteudoArquivo = conteudoArquivo;
             this.MimeTypeArquivo = mimeTypeArquivo;
 
-            this.Validar();
-        }
-
-        private void Validar()
-        {
-            this
-                .NotificarSeMenorOuIgualA(this.IdUsuario, 0, Mensagem.Id_Usuario_Invalido)
+            this.NotificarSeMenorOuIgualA(this.IdUsuario, 0, Mensagem.Id_Usuario_Invalido)
                 .NotificarSeNuloOuVazio(this.Descricao, LancamentoAnexoMensagem.Descricao_Obrigatorio_Nao_Informado)
                 .NotificarSeNuloOuVazio(this.NomeArquivo, LancamentoAnexoMensagem.Nome_Arquivo_Obrigatorio_Nao_Informado)
-                .NotificarSeIguais(this.ConteudoArquivo.Length, 0, LancamentoAnexoMensagem.Arquivo_Conteudo_Nao_Informado);
-
-            if (!string.IsNullOrEmpty(this.Descricao))
-                this.NotificarSePossuirTamanhoSuperiorA(this.Descricao, 200, LancamentoAnexoMensagem.Descricao_Tamanho_Maximo_Excedido);
-
-            if (!string.IsNullOrEmpty(this.NomeArquivo))
-                this.NotificarSePossuirTamanhoSuperiorA(this.NomeArquivo, 50, LancamentoAnexoMensagem.Nome_Arquivo_Tamanho_Maximo_Excedido);
-
-            if (this.ConteudoArquivo != null)
-                this.NotificarSeVerdadeiro((decimal)(this.ConteudoArquivo.Length / 1024) > (5 * 1024), string.Format(LancamentoAnexoMensagem.Arquivo_Tamanho_Nao_Permitido, Math.Round((decimal)(this.ConteudoArquivo.Length / 1024) / 1024, 1)));
+                .NotificarSeIguais(this.ConteudoArquivo.Length, 0, LancamentoAnexoMensagem.Arquivo_Conteudo_Nao_Informado)
+                .NotificarSeVerdadeiro(!string.IsNullOrEmpty(this.Descricao) && this.Descricao.Length > 200, LancamentoAnexoMensagem.Descricao_Tamanho_Maximo_Excedido)
+                .NotificarSeVerdadeiro(!string.IsNullOrEmpty(this.NomeArquivo) && this.NomeArquivo.Length > 50, LancamentoAnexoMensagem.Nome_Arquivo_Tamanho_Maximo_Excedido)
+                .NotificarSeVerdadeiro(this.ConteudoArquivo != null && (decimal)(this.ConteudoArquivo.Length / 1024) > (5 * 1024), string.Format(LancamentoAnexoMensagem.Arquivo_Tamanho_Nao_Permitido, Math.Round((decimal)(this.ConteudoArquivo.Length / 1024) / 1024, 1)));
         }
     }
 }

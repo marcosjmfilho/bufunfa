@@ -111,7 +111,7 @@ namespace JNogueira.Bufunfa.Dominio.Comandos
         /// <summary>
         /// Parcelas do agendamento
         /// </summary>
-        public IEnumerable<ParcelaSaida> Parcelas { get; }        
+        public IEnumerable<ParcelaSaida> Parcelas { get; }
 
         public AgendamentoSaida(Agendamento agendamento)
         {

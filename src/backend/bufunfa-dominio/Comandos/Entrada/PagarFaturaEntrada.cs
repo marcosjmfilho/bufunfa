@@ -96,13 +96,7 @@ namespace JNogueira.Bufunfa.Dominio.Comandos
             this.ValorAdicionalDebito  = valorAdicionalDebito;
             this.ObservacaoDebito      = observacaoDebito;
 
-            Validar();
-        }
-
-        private void Validar()
-        {
-            this
-                .NotificarSeMenorOuIgualA(this.IdUsuario, 0, Mensagem.Id_Usuario_Invalido)
+            this.NotificarSeMenorOuIgualA(this.IdUsuario, 0, Mensagem.Id_Usuario_Invalido)
                 .NotificarSeMenorOuIgualA(this.IdCartaoCredito, 0, CartaoCreditoMensagem.Id_Cartao_Invalido)
                 .NotificarSeMenorOuIgualA(this.IdContaPagamento, 0, ContaMensagem.Id_Conta_Invalido);
         }

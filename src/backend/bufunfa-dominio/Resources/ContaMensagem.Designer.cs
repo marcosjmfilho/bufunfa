@@ -61,7 +61,7 @@ namespace JNogueira.Bufunfa.Dominio.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Análise da carteira de ações obtida com sucesso..
+        ///   Looks up a localized string similar to Análise da carteira de ativos obtida com sucesso..
         /// </summary>
         public static string Analise_Carteira_Acoes_Obtida_Com_Sucesso {
             get {
@@ -70,7 +70,7 @@ namespace JNogueira.Bufunfa.Dominio.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Análise da carteira da ação obtida com sucesso..
+        ///   Looks up a localized string similar to Análise da carteira do ativo obtida com sucesso..
         /// </summary>
         public static string Analise_Carteira_Obtida_Com_Sucesso {
             get {
@@ -79,11 +79,65 @@ namespace JNogueira.Bufunfa.Dominio.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A análise da carteira só é possível para contas do tipo renda variável..
+        ///   Looks up a localized string similar to A análise da carteira só é possível para contas do tipo renda variável (ações ou FII)..
         /// </summary>
         public static string Analise_Carteira_Somente_Conta_Renda_Variavel {
             get {
                 return ResourceManager.GetString("Analise_Carteira_Somente_Conta_Renda_Variavel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ativo alterado com sucesso..
+        /// </summary>
+        public static string Ativo_Alterado_Com_Sucesso {
+            get {
+                return ResourceManager.GetString("Ativo_Alterado_Com_Sucesso", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O ativo que se deseja alterar, não pertence ao usuário autenticado..
+        /// </summary>
+        public static string Ativo_Alterar_Nao_Pertence_Usuario {
+            get {
+                return ResourceManager.GetString("Ativo_Alterar_Nao_Pertence_Usuario", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ativo cadastrado com sucesso..
+        /// </summary>
+        public static string Ativo_Cadastrado_Com_Sucesso {
+            get {
+                return ResourceManager.GetString("Ativo_Cadastrado_Com_Sucesso", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Você já possui um ativo cadastrado com o código informado..
+        /// </summary>
+        public static string Ativo_Com_Mesmo_Codigo {
+            get {
+                return ResourceManager.GetString("Ativo_Com_Mesmo_Codigo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ativo excluído com sucesso..
+        /// </summary>
+        public static string Ativo_Excluido_Com_Sucesso {
+            get {
+                return ResourceManager.GetString("Ativo_Excluido_Com_Sucesso", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O ativo que se deseja excluir, não pertence ao usuário autenticado..
+        /// </summary>
+        public static string Ativo_Excluir_Nao_Pertence_Usuario {
+            get {
+                return ResourceManager.GetString("Ativo_Excluir_Nao_Pertence_Usuario", resourceCulture);
             }
         }
         
@@ -223,6 +277,15 @@ namespace JNogueira.Bufunfa.Dominio.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to O ativo com o ID informado não existe..
+        /// </summary>
+        public static string Id_Ativo_Nao_Existe {
+            get {
+                return ResourceManager.GetString("Id_Ativo_Nao_Existe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to O ID da conta de destino da transferência é inválido..
         /// </summary>
         public static string Id_Conta_Destino_Transferencia_Invalido {
@@ -286,7 +349,7 @@ namespace JNogueira.Bufunfa.Dominio.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to O nome da conta é obrigatório e não foi informado..
+        ///   Looks up a localized string similar to O nome é obrigatório e não foi informado..
         /// </summary>
         public static string Nome_Obrigatorio_Nao_Informado {
             get {
@@ -295,7 +358,7 @@ namespace JNogueira.Bufunfa.Dominio.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to O nome da conta deve possuir no máximo 100 caracteres..
+        ///   Looks up a localized string similar to O nome deve possuir no máximo 100 caracteres..
         /// </summary>
         public static string Nome_Tamanho_Maximo_Excedido {
             get {

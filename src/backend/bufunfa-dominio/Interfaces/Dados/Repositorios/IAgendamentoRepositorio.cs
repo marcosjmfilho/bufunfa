@@ -37,6 +37,6 @@ namespace JNogueira.Bufunfa.Dominio.Interfaces.Dados
         /// <summary>
         /// Deleta todos os agendamentos relacionados a uma conta.
         /// </summary>
-        void DeletarPorConta(int idConta);
+        Task DeletarPorConta(int idConta);
     }
 }

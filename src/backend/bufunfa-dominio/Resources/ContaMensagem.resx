@@ -157,10 +157,10 @@
     <value>O nome da instituição da conta deve possuir no máximo 500 caracteres.</value>
   </data>
   <data name="Nome_Obrigatorio_Nao_Informado" xml:space="preserve">
-    <value>O nome da conta é obrigatório e não foi informado.</value>
+    <value>O nome é obrigatório e não foi informado.</value>
   </data>
   <data name="Nome_Tamanho_Maximo_Excedido" xml:space="preserve">
-    <value>O nome da conta deve possuir no máximo 100 caracteres.</value>
+    <value>O nome deve possuir no máximo 100 caracteres.</value>
   </data>
   <data name="Numero_Agencia_Tamanho_Maximo_Excedido" xml:space="preserve">
     <value>O número da agência da conta deve possuir no máximo 20 caracteres.</value>
@@ -218,5 +218,26 @@
   </data>
   <data name="Valor_Transferencia_Invalido" xml:space="preserve">
     <value>O valor do transferência é inválido.</value>
+  </data>
+  <data name="Ativo_Com_Mesmo_Codigo" xml:space="preserve">
+    <value>Você já possui um ativo cadastrado com o código informado.</value>
+  </data>
+  <data name="Ativo_Alterado_Com_Sucesso" xml:space="preserve">
+    <value>Ativo alterado com sucesso.</value>
+  </data>
+  <data name="Ativo_Alterar_Nao_Pertence_Usuario" xml:space="preserve">
+    <value>O ativo que se deseja alterar, não pertence ao usuário autenticado.</value>
+  </data>
+  <data name="Ativo_Cadastrado_Com_Sucesso" xml:space="preserve">
+    <value>Ativo cadastrado com sucesso.</value>
+  </data>
+  <data name="Ativo_Excluido_Com_Sucesso" xml:space="preserve">
+    <value>Ativo excluído com sucesso.</value>
+  </data>
+  <data name="Ativo_Excluir_Nao_Pertence_Usuario" xml:space="preserve">
+    <value>O ativo que se deseja excluir, não pertence ao usuário autenticado.</value>
+  </data>
+  <data name="Id_Ativo_Nao_Existe" xml:space="preserve">
+    <value>O ativo com o ID informado não existe.</value>
   </data>
 </root>

@@ -38,23 +38,11 @@ namespace JNogueira.Bufunfa.Dominio.Comandos
             this.PaginaIndex = paginaIndex;
             this.PaginaTamanho = paginaTamanho;
 
-            this.Validar();
+            this.NotificarSeMenorOuIgualA(this.IdUsuario, 0, Mensagem.Id_Usuario_Invalido)
+                .NotificarSeVerdadeiro(this.PaginaIndex.HasValue && this.PaginaIndex.Value < 1, Mensagem.Paginacao_Pagina_Index_Invalido)
+                .NotificarSeVerdadeiro(this.PaginaTamanho.HasValue && this.PaginaTamanho.Value < 1, Mensagem.Paginacao_Pagina_Tamanho_Invalido);
         }
 
-        public bool Paginar()
-        {
-            return this.PaginaIndex.HasValue && this.PaginaTamanho.HasValue;
-        }
-
-        private void Validar()
-        {
-            this.NotificarSeMenorOuIgualA(this.IdUsuario, 0, Mensagem.Id_Usuario_Invalido);
-
-            if (this.PaginaIndex.HasValue)
-                this.NotificarSeMenorQue(this.PaginaIndex.Value, 1, Mensagem.Paginacao_Pagina_Index_Invalido);
-
-            if (this.PaginaTamanho.HasValue)
-                this.NotificarSeMenorQue(this.PaginaTamanho.Value, 1, Mensagem.Paginacao_Pagina_Tamanho_Invalido);
-        }
+        public bool Paginar() => this.PaginaIndex.HasValue && this.PaginaTamanho.HasValue;
     }
 }

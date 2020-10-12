@@ -40,17 +40,9 @@ namespace JNogueira.Bufunfa.Dominio.Comandos
             this.Valor       = valor;
             this.Observacao  = observacao;
 
-            this.Validar();
-        }
-
-        private void Validar()
-        {
-            this
-                .NotificarSeMenorOuIgualA(this.IdUsuario, 0, Mensagem.Id_Usuario_Invalido)
-                .NotificarSeMaiorQue(this.Data, DateTime.Today, ParcelaMensagem.Data_Lancamento_Maior_Data_Corrente);
-
-            if (!string.IsNullOrEmpty(this.Observacao))
-                this.NotificarSePossuirTamanhoSuperiorA(this.Observacao, 500, ParcelaMensagem.Observacao_Tamanho_Maximo_Excedido);
+            this.NotificarSeMenorOuIgualA(this.IdUsuario, 0, Mensagem.Id_Usuario_Invalido)
+                .NotificarSeMaiorQue(this.Data, DateTime.Today, ParcelaMensagem.Data_Lancamento_Maior_Data_Corrente)
+                .NotificarSeVerdadeiro(!string.IsNullOrEmpty(this.Observacao) && this.Observacao.Length > 500, ParcelaMensagem.Observacao_Tamanho_Maximo_Excedido);
         }
     }
 }

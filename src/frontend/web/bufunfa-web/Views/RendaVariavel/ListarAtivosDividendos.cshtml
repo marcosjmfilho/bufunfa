@@ -1,0 +1,68 @@
+﻿@using JNogueira.Bufunfa.Web.Models
+
+@model IEnumerable<RendaVariavelAnalise>
+
+@if (Model != null && Model.Any())
+{
+    <div class="table-responsive no-padding">
+        <table class="table table-hover table-striped table-sm" id="table-dividendos">
+            <thead>
+                <tr>
+                    <th style="width:20%;">Sigla</th>
+                    <th style="width:40%;">Descrição</th>
+                    <th class="text-right text-nowrap" style="width: 10%;">Quantidade</th>
+                    <th class="text-right text-nowrap kt-pl15-tablet-and-mobile" style="width: 10%;">Total investido</th>
+                    <th class="text-right text-nowrap kt-pl15-tablet-and-mobile" style="width: 10%;">Total proventos</th>
+                    <th class="text-right text-nowrap kt-pl15-tablet-and-mobile" style="width: 10%;">Total venda</th>
+                    <th style="width:1px;"></th>
+                    <th style="width:1px;"></th>
+                    <th style="width:1px;"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var analise in Model)
+                {
+                    <tr>
+                        <td class="text-nowrap">
+                            @if (analise.CodigoTipo == (int)TipoConta.FII)
+                            {
+                                <a href="https://www.fundsexplorer.com.br/funds/@(analise.SiglaAtivo)" target="_blank" class="btn btn-clean btn-sm btn-icon btn-icon-sm btn-datatables info-acao" data-toggle="kt-tooltip" data-boundary="window" data-placement="top" data-original-title="Informações do ativo"><span class="la la-info-circle"></span></a>
+                            }
+                            else
+                            {
+                                <a href="https://www.sunoresearch.com.br/acoes/@(analise.SiglaAtivo)/" target="_blank" class="btn btn-clean btn-sm btn-icon btn-icon-sm btn-datatables info-acao" data-toggle="kt-tooltip" data-boundary="window" data-placement="top" data-original-title="Informações do ativo"><span class="la la-info-circle"></span></a>
+                            }
+                            @Html.Raw(analise.RankingAtivo.HasValue ? "<small class=\"kt-font-bolder kt-font-warning\">" + analise.RankingAtivo + "</small> <span class=\"kt-badge kt-badge--dark kt-badge--dot kt-badge--sm\"></span>" : string.Empty) @analise.SiglaAtivo
+                        </td>
+                        <td class="text-nowrap">@analise.NomeAtivo</td>
+                        <td class="text-right text-nowrap">@analise.QuantidadeEmCarteira.ToString("N0") @(analise.CodigoTipo == (int)TipoConta.Acoes ? (analise.QuantidadeEmCarteira > 1 ? "ações" : "ação") : (analise.QuantidadeEmCarteira > 1 ? "cotas" : "cota"))</td>
+                        <td class="text-nowrap text-right kt-font-bold @(analise.ValorTotalCompra > 0 ? "kt-font-danger" : string.Empty)">@(analise.ValorTotalCompra.ToString("C2"))</td>
+                        <td class="text-nowrap text-right kt-font-bold kt-font-success">@(analise.ObterValorTotalJurosDividendosEmReais())</td>
+                        <td class="text-nowrap text-right kt-font-bold @(analise.ValorTotalVenda > 0 ? "kt-font-success" : string.Empty)">@(analise.ValorTotalVenda.ToString("C2"))</td>
+                        <td><button class="btn btn-clean btn-sm btn-icon btn-icon-sm btn-datatables detalhar-ativo-div" data-id-conta="@analise.IdConta" data-tipo="DIV" data-toggle="kt-tooltip" data-boundary="window" data-placement="top" data-original-title="Detalhar"><span class="la la-search-plus"></span></button></td>
+                        <td><button class="btn btn-clean btn-sm btn-icon btn-icon-sm btn-datatables alterar-ativo-div" data-id-conta="@analise.IdConta" data-tipo="DIV" data-toggle="kt-tooltip" data-boundary="window" data-placement="top" data-original-title="Alterar"><span class="la la-edit"></span></button></td>
+                        <td><button class="btn btn-clean btn-sm btn-icon btn-icon-sm btn-datatables excluir-ativo-div" data-id-conta="@analise.IdConta" data-tipo="DIV" data-toggle="kt-tooltip" data-boundary="window" data-placement="top" data-original-title="Excluir"><span class="la la-trash"></span></button></td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                @{
+                    var somaValorTotalCompra = Model.Sum(x => x.ValorTotalCompra);
+                    var somaValorTotalDividendos = Model.Sum(x => x.ValorTotalJurosDividendos);
+                    var somaValorTotalVenda = Model.Sum(x => x.ValorTotalVenda);
+                }
+                <tr>
+                    <td class="text-right kt-font-bold" colspan="3">TOTAL</td>
+                    <td class="text-right kt-font-boldest @(somaValorTotalCompra > 0 ? "kt-font-danger" : string.Empty)">@somaValorTotalCompra.ToString("c2")</td>
+                    <td class="text-right kt-font-boldest @(somaValorTotalCompra > 0 ? "kt-font-success" : string.Empty)">@somaValorTotalDividendos.ToString("c2")</td>
+                    <td class="text-right kt-font-boldest @(somaValorTotalVenda > 0 ? "kt-font-success" : string.Empty)">@somaValorTotalVenda.ToString("c2")</td>
+                    <td colspan="3"></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+}
+else
+{
+    <div class="text-center">Nenhum ativo encontrado.</div>
+}

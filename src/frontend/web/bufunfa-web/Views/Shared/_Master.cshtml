@@ -122,9 +122,19 @@
                                 </div>
                             </li>
                             <li class="kt-menu__item @(VerificarCssClassMenuItemAtivo("dashboard"))"><a href="/dashboard" class="kt-menu__link "><i class="kt-menu__link-icon flaticon-dashboard"></i><span class="kt-menu__link-text">Dashboard</span></a></li>
-                            <li class="kt-menu__item @(VerificarCssClassMenuItemAtivo("contas"))"><a href="/contas" class="kt-menu__link "><i class="kt-menu__link-icon flaticon-price-tag"></i><span class="kt-menu__link-text">Contas, cartões e ativos</span></a></li>
+                            <li class="kt-menu__item @(VerificarCssClassMenuItemAtivo("contas"))"><a href="/contas" class="kt-menu__link "><i class="kt-menu__link-icon flaticon-price-tag"></i><span class="kt-menu__link-text">Contas e cartões</span></a></li>
                             <li class="kt-menu__item @(VerificarCssClassMenuItemAtivo("lancamentos"))"><a href="" id="lLancamentos" class="kt-menu__link "><i class="kt-menu__link-icon fa fa-exchange-alt"></i><span class="kt-menu__link-text">Lançamentos</span></a></li>
                             <li class="kt-menu__item @(VerificarCssClassMenuItemAtivo("agendamentos"))"><a href="/agendamentos" class="kt-menu__link "><i class="kt-menu__link-icon fa fa-calendar-alt"></i><span class="kt-menu__link-text">Agendamentos</span></a></li>
+                            <li class="kt-menu__item @(VerificarCssClassMenuItemAtivo("ativos", "notas-corretagem")) kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
+                                <a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon flaticon2-line-chart"></i><span class="kt-menu__link-text">Renda variável</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
+                                <div class="kt-menu__submenu ">
+                                    <span class="kt-menu__arrow"></span>
+                                    <ul class="kt-menu__subnav">
+                                        <li class="kt-menu__item @(url.EndsWith("ativos") ? "kt-menu__item--active" : string.Empty)" aria-haspopup="true"><a href="/renda-variavel/ativos" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Ativos</span></a></li>
+                                        <li class="kt-menu__item @(url.EndsWith("notas-corretagem") ? "kt-menu__item--active" : string.Empty)" aria-haspopup="true"><a href="/renda-variavel/notas-corretagem" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Notas de corretagem</span></a></li>
+                                    </ul>
+                                </div>
+                            </li>
                             <li class="kt-menu__item @(VerificarCssClassMenuItemAtivo("atalhos", "categorias", "periodos", "pessoas")) kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
                                 <a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon flaticon2-settings"></i><span class="kt-menu__link-text">Cadastros</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
                                 <div class="kt-menu__submenu ">

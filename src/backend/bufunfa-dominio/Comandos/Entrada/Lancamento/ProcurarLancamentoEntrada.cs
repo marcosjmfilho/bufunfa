@@ -39,16 +39,8 @@ namespace JNogueira.Bufunfa.Dominio.Comandos
             DataInicio  = dataInicio;
             DataFim     = dataFim;
 
-            this.Validar();
-        }
-
-        private void Validar()
-        {
-            if (this.DataInicio.HasValue && this.DataFim.HasValue)
-                this.NotificarSeMaiorQue(this.DataInicio.Value, this.DataFim.Value, LancamentoMensagem.Lancamento_Procurar_Periodo_Invalido);
-
-            if (this.DataInicio.HasValue && !this.DataFim.HasValue || !this.DataInicio.HasValue && this.DataFim.HasValue)
-                this.NotificarSeMaiorQue(this.DataInicio.Value, this.DataFim.Value, LancamentoMensagem.Lancamento_Procurar_Periodo_Invalido);
+            this.NotificarSeVerdadeiro(this.DataInicio.HasValue && this.DataFim.HasValue && this.DataInicio.Value > this.DataFim.Value, LancamentoMensagem.Lancamento_Procurar_Periodo_Invalido)
+                .NotificarSeVerdadeiro((this.DataInicio.HasValue && !this.DataFim.HasValue) || (!this.DataInicio.HasValue && this.DataFim.HasValue), LancamentoMensagem.Lancamento_Procurar_Periodo_Invalido);
         }
     }
 

@@ -47,16 +47,8 @@ namespace JNogueira.Bufunfa.Dominio.Comandos
             DataFimParcela    = dataFimParcela;
             Concluido         = concluido;
 
-            this.Validar();
-        }
-
-        public void Validar()
-        {
-            if (this.DataInicioParcela.HasValue && this.DataFimParcela.HasValue)
-                this.NotificarSeMaiorQue(this.DataInicioParcela.Value, this.DataFimParcela.Value, AgendamentoMensagem.Agendamento_Procurar_Periodo_Invalido);
-
-            if (this.DataInicioParcela.HasValue && !this.DataFimParcela.HasValue || !this.DataInicioParcela.HasValue && this.DataFimParcela.HasValue)
-                this.AdicionarNotificacao(AgendamentoMensagem.Agendamento_Procurar_Periodo_Invalido);
+            this.NotificarSeVerdadeiro(this.DataInicioParcela.HasValue && this.DataFimParcela.HasValue && this.DataInicioParcela.Value > this.DataFimParcela.Value, AgendamentoMensagem.Agendamento_Procurar_Periodo_Invalido)
+                .NotificarSeVerdadeiro((this.DataInicioParcela.HasValue && !this.DataFimParcela.HasValue) || (!this.DataInicioParcela.HasValue && this.DataFimParcela.HasValue), AgendamentoMensagem.Agendamento_Procurar_Periodo_Invalido);
         }
     }
 

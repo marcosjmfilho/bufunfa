@@ -31,22 +31,12 @@ namespace JNogueira.Bufunfa.Web.Controllers
         [FeedbackExceptionFilter("Ocorreu um erro ao obter as contas.", TipoAcaoAoOcultarFeedback.Ocultar)]
         public async Task<IActionResult> Listar(string tipo)
         {
-            if (tipo == "RF")
-            {
-                var saida = await _proxy.ObterContas();
+            var saida = await _proxy.ObterContas();
 
-                if (!saida.Sucesso)
-                    return new FeedbackResult(new Feedback(TipoFeedback.Erro, "Não foi possível obter as contas.", saida.Mensagens));
+            if (!saida.Sucesso)
+                return new FeedbackResult(new Feedback(TipoFeedback.Erro, "Não foi possível obter as contas.", saida.Mensagens));
 
-                return PartialView("ListarRendaFixa", saida.Retorno?.Where(x => x.TipoInvestimento == null || x.TipoInvestimento == TipoInvestimento.RendaFixa));
-            }
-           
-            var analiseSaida = await _proxy.ObterAnaliseAtivos();
-
-            if (!analiseSaida.Sucesso)
-                return new FeedbackResult(new Feedback(TipoFeedback.Erro, "Não foi possível obter os ativos.", analiseSaida.Mensagens));
-
-            return PartialView("ListarRendaVariavel", analiseSaida.Retorno);
+            return PartialView("ListarRendaFixa", saida.Retorno?.Where(x => x.TipoInvestimento == null || x.TipoInvestimento == TipoInvestimento.RendaFixa));
         }
 
         [HttpGet]
@@ -111,32 +101,6 @@ namespace JNogueira.Bufunfa.Web.Controllers
                 ? new FeedbackResult(new Feedback(TipoFeedback.Erro, "Não foi possível excluir a conta.", saida.Mensagens))
                 : new FeedbackResult(new Feedback(TipoFeedback.Sucesso, "Conta excluída com sucesso."));
         }
-
-        [HttpGet]
-        [Route("obter-analise-por-ativo")]
-        public async Task<IActionResult> ObterAnalisePorAtivo(int id, decimal valorCotacao = 0)
-        {
-            var saida = await _proxy.ObterAnaliseAtivo(id, valorCotacao);
-
-            if (!saida.Sucesso)
-                return new FeedbackResult(new Feedback(TipoFeedback.Erro, "Não foi possível obter a análise do ativo.", saida.Mensagens));
-
-            return PartialView("PopupAcao", saida.Retorno);
-        }
-
-        [HttpGet]
-        [Route("informar-valor-cotacao-por-acao")]
-        public async Task<IActionResult> InformarValorCotacaoPorAcao(int id)
-        {
-            var saida = await _proxy.ObterContaPorId(id);
-
-            if (!saida.Sucesso)
-                return new FeedbackResult(new Feedback(TipoFeedback.Erro, "Não foi possível obter as informações da ação.", saida.Mensagens));
-
-            return PartialView("PopupValorCotacao", saida.Retorno);
-        }
-
-        
 
         [HttpGet]
         [Route("obter-saldo-atual")]

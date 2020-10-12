@@ -1,6 +1,4 @@
-﻿using JNogueira.Bufunfa.Dominio.Resources;
-using JNogueira.NotifiqueMe;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
 namespace JNogueira.Bufunfa.Dominio.Comandos
 {
@@ -21,14 +19,6 @@ namespace JNogueira.Bufunfa.Dominio.Comandos
             : base(idUsuario, ordenarPor, ordenarSentido, paginaIndex, paginaTamanho)
         {
             this.Nome = nome;
-            
-            this.Validar();
-        }
-
-        private void Validar()
-        {
-            if (!string.IsNullOrEmpty(this.Nome))
-                this.NotificarSePossuirTamanhoSuperiorA(this.Nome, 200, PessoaMensagem.Nome_Tamanho_Maximo_Excedido);
         }
     }
 

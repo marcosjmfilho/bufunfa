@@ -123,10 +123,10 @@ var Pessoa = function () {
             else
                 feedback.exibir();
         })
-            .fail(function (jqXhr) {
-                let feedback = Feedback.converter(jqXhr.responseJSON);
-                feedback.exibir();
-            });
+        .fail(function (jqXhr) {
+            let feedback = Feedback.converter(jqXhr.responseJSON);
+            feedback.exibir();
+        });
     };
 
     //== Public Functions

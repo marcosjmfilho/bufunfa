@@ -36,19 +36,11 @@ namespace JNogueira.Bufunfa.Dominio.Comandos
             this.ValorLimite         = valorLimite;
             this.DiaVencimentoFatura = diaVencimentoFatura;
 
-            this.Validar();
-        }
-
-        private void Validar()
-        {
-            this
-                .NotificarSeMenorOuIgualA(this.IdUsuario, 0, Mensagem.Id_Usuario_Invalido)
+            this.NotificarSeMenorOuIgualA(this.IdUsuario, 0, Mensagem.Id_Usuario_Invalido)
                 .NotificarSeNuloOuVazio(this.Nome, CartaoCreditoMensagem.Nome_Obrigatorio_Nao_Informado)
                 .NotificarSeMenorOuIgualA(this.ValorLimite, 0, CartaoCreditoMensagem.Valor_Limite_Invalido)
-                .NotificarSeFalso(this.DiaVencimentoFatura >= 1 && this.DiaVencimentoFatura <= 31, CartaoCreditoMensagem.Dia_Vencimento_Fatura_Invalido);
-
-            if (!string.IsNullOrEmpty(this.Nome))
-                this.NotificarSePossuirTamanhoSuperiorA(this.Nome, 100, CartaoCreditoMensagem.Nome_Tamanho_Maximo_Excedido);
+                .NotificarSeFalso(this.DiaVencimentoFatura >= 1 && this.DiaVencimentoFatura <= 31, CartaoCreditoMensagem.Dia_Vencimento_Fatura_Invalido)
+                .NotificarSeVerdadeiro(!string.IsNullOrEmpty(this.Nome) && this.Nome.Length > 100, CartaoCreditoMensagem.Nome_Tamanho_Maximo_Excedido);
         }
     }
 }

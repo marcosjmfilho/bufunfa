@@ -18,7 +18,8 @@ namespace JNogueira.Bufunfa.Api.Swagger.Exemplos
                 ValorSaldoInicial = (decimal?)115.54,
                 NomeInstituicao = "Banco Santander S/A",
                 NumeroAgencia = "3345",
-                Numero = "01005539-0"
+                Numero = "01005539-0",
+                Ranking = null
             };
         }
     }

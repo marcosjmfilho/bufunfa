@@ -72,25 +72,13 @@ namespace JNogueira.Bufunfa.Dominio.Comandos
             this.IdPessoa        = idPessoa;
             this.Observacao      = observacao;
 
-            Validar();
-        }
-
-        private void Validar()
-        {
-            this
-                .NotificarSeMenorOuIgualA(this.IdUsuario, 0, Mensagem.Id_Usuario_Invalido)
+            this.NotificarSeMenorOuIgualA(this.IdUsuario, 0, Mensagem.Id_Usuario_Invalido)
                 .NotificarSeMenorOuIgualA(this.IdConta, 0, ContaMensagem.Id_Conta_Invalido)
                 .NotificarSeMenorOuIgualA(this.IdCategoria, 0, CategoriaMensagem.Id_Categoria_Invalido)
-                .NotificarSeMaiorQue(this.Data, DateTime.Today, LancamentoMensagem.Data_Lancamento_Maior_Data_Corrente);
-
-            if (this.IdPessoa.HasValue)
-                this.NotificarSeMenorQue(this.IdPessoa.Value, 1, PessoaMensagem.Id_Pessoa_Invalido);
-
-            if (this.IdParcela.HasValue)
-                this.NotificarSeMenorQue(this.IdParcela.Value, 1, ParcelaMensagem.Id_Parcela_Invalido);
-
-            if (!string.IsNullOrEmpty(this.Observacao))
-                this.NotificarSePossuirTamanhoSuperiorA(this.Observacao, 500, LancamentoMensagem.Observacao_Tamanho_Maximo_Excedido);
+                .NotificarSeMaiorQue(this.Data, DateTime.Today, LancamentoMensagem.Data_Lancamento_Maior_Data_Corrente)
+                .NotificarSeVerdadeiro(this.IdPessoa.HasValue && this.IdPessoa.Value < 1, PessoaMensagem.Id_Pessoa_Invalido)
+                .NotificarSeVerdadeiro(this.IdParcela.HasValue && this.IdParcela.Value < 1, ParcelaMensagem.Id_Parcela_Invalido)
+                .NotificarSeVerdadeiro(!string.IsNullOrEmpty(this.Observacao) && this.Observacao.Length > 500, LancamentoMensagem.Observacao_Tamanho_Maximo_Excedido);
         }
     }
 }

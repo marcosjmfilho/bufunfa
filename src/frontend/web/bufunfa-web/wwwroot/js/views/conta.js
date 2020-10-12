@@ -2,25 +2,10 @@
 
     var _carregarContas = function (tipo) {
         $.get(App.corrigirPathRota("/contas/listar-contas?tipo=" + tipo), function (html) {
-            if (tipo == "RF") {
-                App.desbloquear($("#portlet-renda-fixa"));
-                $("#divRendaFixa").html(html);
-            } else {
-                App.desbloquear($("#portlet-renda-variavel"));
-                $("#divRendaVariavel").html(html);
-            }
+            App.desbloquear($("#portlet-renda-fixa"));
+            $("#divRendaFixa").html(html);
 
             App.aplicarTabelaSelecionavel("#table-renda-fixa");
-
-            if (tipo == "RV") {
-                $("button[class*='detalhar-conta-" + tipo.toLowerCase() + "']").each(function () {
-                    let idConta = $(this).data("id-conta");
-
-                    $(this).click(function () {
-                        Bufunfa.exibirAcao(idConta);
-                    });
-                });
-            }
 
             $("button[class*='alterar-conta-" + tipo.toLowerCase() + "']").each(function () {
                 let idConta = $(this).data("id-conta");
@@ -124,49 +109,32 @@
                 }
             });
 
-            if (tipo == "RF") {
-                $('#sTipo').select2({
-                    allowClear: false,
-                    placeholder: "Selecione um tipo",
-                    dropdownParent: $('.jc-bs3-container'),
-                    minimumResultsForSearch: -1,
-                    escapeMarkup: function (markup) { return markup; },
-                    templateResult: function (item) {
-                        return '<b>' + item.text + "</b><br/>" + $(item.element).data("descricao");
-                    }
-                }).on("change", function () {
-                    $(this).valid();
-                });
+            $('#sTipo').select2({
+                allowClear: false,
+                placeholder: "Selecione um tipo",
+                dropdownParent: $('.jc-bs3-container'),
+                minimumResultsForSearch: -1,
+                escapeMarkup: function (markup) { return markup; },
+                templateResult: function (item) {
+                    return '<b>' + item.text + "</b><br/>" + $(item.element).data("descricao");
+                }
+            }).on("change", function () {
+                $(this).valid();
+            });
 
-                if ($("#iCodigoTipo").val() != "")
-                    $("#sTipo").val($("#iCodigoTipo").val()).trigger('change');
+            if ($("#iCodigoTipo").val() != "")
+                $("#sTipo").val($("#iCodigoTipo").val()).trigger('change');
 
-                $('#iSaldoInicial').inputmask('decimal', {
-                    radixPoint: ",",
-                    groupSeparator: ".",
-                    autoGroup: true,
-                    digits: 2,
-                    digitsOptional: false,
-                    placeholder: '0',
-                    rightAlign: false,
-                    prefix: ''
-                });
-            } else {
-                $('#sTipo').select2({
-                    allowClear: false,
-                    placeholder: "Selecione um tipo",
-                    dropdownParent: $('.jc-bs3-container'),
-                    minimumResultsForSearch: -1
-                }).on("change", function () {
-                    $(this).valid();
-                });
-
-                $('#iRanking').inputmask({
-                    mask: "9",
-                    repeat: 2,
-                    greedy: false
-                });
-            }
+            $('#iSaldoInicial').inputmask('decimal', {
+                radixPoint: ",",
+                groupSeparator: ".",
+                autoGroup: true,
+                digits: 2,
+                digitsOptional: false,
+                placeholder: '0',
+                rightAlign: false,
+                prefix: ''
+            });
         });
     };
 
@@ -276,7 +244,6 @@
     return {
         init: function () {
             _carregarContas("RF");
-            _carregarContas("RV");
             _carregarCartoes();
 
             $("#btn-cadastrar-renda-fixa").click(function () {
@@ -287,10 +254,6 @@
                 Bufunfa.realizarTransferencia();
             });
 
-            $("#btn-cadastrar-renda-variavel").click(function () {
-                _manterConta(null, "RV");
-            });
-
             $("#btn-cadastrar-cartao-credito").click(function () {
                 _manterCartao(null);
             });
@@ -298,7 +261,6 @@
 
         atualizar: function () {
             _carregarContas("RF");
-            _carregarContas("RV");
         }
     };
 }();

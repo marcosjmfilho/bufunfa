@@ -4,50 +4,98 @@
 
 @if (Model != null && Model.Any())
 {
-    <div class="kt-widget11">
-        <div class="table-responsive">
-            <table class="table" style="margin-bottom: 0;">
-                <thead>
-                    <tr>
-                        <td class="text-nowrap">Ativo</td>
-                        <td class="text-nowrap text-right" style="width:15%; line-height: 15px;">Total <br />investido</td>
-                        <td class="text-nowrap text-right kt-pl15-tablet-and-mobile" style="width:15%; line-height: 15px;">Total <br/>dividendos</td>
-                        <td style="width:1px"></td>
-                        <td style="width:1px"></td>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var analise in Model)
-                    {
-                        <tr>
-                            <td class="text-nowrap">
-                                <span class="kt-widget11__title">
-                                    @Html.Raw(analise.RankingAtivo.HasValue ? "<small class=\"kt-font-bolder kt-font-warning\">" + analise.RankingAtivo + "</small> <span class=\"kt-badge kt-badge--dark kt-badge--dot kt-badge--sm\"></span>" : string.Empty) @analise.SiglaAtivo <span class="kt-badge kt-badge--dark kt-badge--dot kt-badge--sm"></span> <small class="kt-font-bolder kt-font-primary">@(Html.Raw(analise.CodigoTipo == (int)TipoConta.FII ? "FII" : "Ações"))</small>
-                                </span>
-                                <span class="kt-widget11__sub"><small style="font-size: 85%;">@analise.NomeAtivo</small></span>
-                            </td>
-                            <td class="text-nowrap text-right">
-                                <span class="kt-font-bold">@analise.ValorTotalCompra.ToString("c2")</span><br />
-                                <small>@analise.QuantidadeEmCarteira.ToString("N0") @(analise.CodigoTipo == (int)TipoConta.Acoes ? (analise.QuantidadeEmCarteira > 1 ? "ações" : "ação") : (analise.QuantidadeEmCarteira > 1 ? "cotas" : "cota"))</small>
-                            </td>
-                            <td class="text-nowrap text-right">
-                                <span class="kt-font-success kt-font-bold">@analise.ObterValorTotalJurosDividendosEmReais()</span><br />
-                            </td>
-                            <td>
-                                @if (analise.CodigoTipo == (int)TipoConta.FII)
-                                {
-                                    <a href="https://www.fundsexplorer.com.br/funds/@(analise.SiglaAtivo)" target="_blank" class="btn btn-clean btn-sm btn-icon btn-icon-sm btn-datatables" data-toggle="kt-tooltip" data-boundary="window" data-placement="top" data-original-title="Informações do ativo"><span class="la la-info-circle"></span></a>
-                                }
-                                else
-                                {
-                                    <a href="https://www.sunoresearch.com.br/acoes/@(analise.SiglaAtivo)/" target="_blank" class="btn btn-clean btn-sm btn-icon btn-icon-sm btn-datatables" data-toggle="kt-tooltip" data-boundary="window" data-placement="top" data-original-title="Informações do ativo"><span class="la la-info-circle"></span></a>
-                                }
-                            </td>
-                            <td><button class="btn btn-clean btn-sm btn-icon btn-icon-sm btn-datatables detalhar-acao" data-id-acao="@analise.IdConta" data-toggle="kt-tooltip" data-boundary="window" data-placement="top" data-original-title="Detalhar ativo"><span class="la la-search-plus"></span></button></td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+    <ul class="nav nav-tabs nav-tabs-line nav-tabs-bold nav-tabs-line-2x nav-tabs-line-primary" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#kt_tabs_1_3" role="tab">FIIs</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#kt_tabs_1_1" role="tab">Ações</a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="kt_tabs_1_3" role="tabpanel">
+            <div class="kt-widget11">
+                <div class="table-responsive">
+                    <table class="table" style="margin-bottom: 0;">
+                        <thead>
+                            <tr>
+                                <td style="width:1px"></td>
+                                <td class="text-nowrap">Ativo</td>
+                                <td class="text-nowrap text-right" style="width:15%; line-height: 15px;">Total <br />investido</td>
+                                <td class="text-nowrap text-right kt-pl15-tablet-and-mobile" style="width:15%; line-height: 15px;">Total <br />dividendos</td>
+                                <td style="width:1px"></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var analise in Model.Where(x => x.CodigoTipo == (int)TipoConta.FII))
+                            {
+                                <tr>
+                                    <td>
+                                        <a href="https://www.fundsexplorer.com.br/funds/@(analise.SiglaAtivo)" target="_blank" class="btn btn-clean btn-sm btn-icon btn-icon-sm btn-datatables" data-toggle="kt-tooltip" data-boundary="window" data-placement="top" data-original-title="Informações do ativo"><span class="la la-info-circle"></span></a>
+                                    </td>
+                                    <td class="text-nowrap">
+                                        <span class="kt-widget11__title">
+                                            @Html.Raw(analise.RankingAtivo.HasValue ? "<small class=\"kt-font-bolder kt-font-warning\">" + analise.RankingAtivo + "</small> <span class=\"kt-badge kt-badge--dark kt-badge--dot kt-badge--sm\"></span>" : string.Empty) @analise.SiglaAtivo
+                                        </span>
+                                        <span class="kt-widget11__sub"><small style="font-size: 85%;">@analise.NomeAtivo</small></span>
+                                    </td>
+                                    <td class="text-nowrap text-right">
+                                        <span class="kt-font-bold">@analise.ValorTotalCompra.ToString("c2")</span><br />
+                                        <small>@analise.QuantidadeEmCarteira.ToString("N0") @(analise.QuantidadeEmCarteira > 1 ? "cotas" : "cota")</small>
+                                    </td>
+                                    <td class="text-nowrap text-right">
+                                        <span class="kt-font-success kt-font-bold">@analise.ObterValorTotalJurosDividendosEmReais()</span><br />
+                                    </td>
+                                    <td><button class="btn btn-clean btn-sm btn-icon btn-icon-sm btn-datatables detalhar-acao" data-id-acao="@analise.IdConta" data-toggle="kt-tooltip" data-boundary="window" data-placement="top" data-original-title="Detalhar ativo"><span class="la la-search-plus"></span></button></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane" id="kt_tabs_1_1" role="tabpanel">
+            <div class="kt-widget11">
+                <div class="table-responsive">
+                    <table class="table" style="margin-bottom: 0;">
+                        <thead>
+                            <tr>
+                                <td style="width:1px"></td>
+                                <td class="text-nowrap">Ativo</td>
+                                <td class="text-nowrap text-right" style="width:15%; line-height: 15px;">Total <br />investido</td>
+                                <td class="text-nowrap text-right kt-pl15-tablet-and-mobile" style="width:15%; line-height: 15px;">Total <br />dividendos</td>
+                                <td style="width:1px"></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var analise in Model.Where(x => x.CodigoTipo == (int)TipoConta.Acoes))
+                            {
+                                <tr>
+                                    <td>
+                                        <a href="https://www.sunoresearch.com.br/acoes/@(analise.SiglaAtivo)/" target="_blank" class="btn btn-clean btn-sm btn-icon btn-icon-sm btn-datatables" data-toggle="kt-tooltip" data-boundary="window" data-placement="top" data-original-title="Informações do ativo"><span class="la la-info-circle"></span></a>
+                                    </td>
+                                    <td class="text-nowrap">
+                                        <span class="kt-widget11__title">
+                                            @Html.Raw(analise.RankingAtivo.HasValue ? "<small class=\"kt-font-bolder kt-font-warning\">" + analise.RankingAtivo + "</small> <span class=\"kt-badge kt-badge--dark kt-badge--dot kt-badge--sm\"></span>" : string.Empty) @analise.SiglaAtivo
+                                        </span>
+                                        <span class="kt-widget11__sub"><small style="font-size: 85%;">@analise.NomeAtivo</small></span>
+                                    </td>
+                                    <td class="text-nowrap text-right">
+                                        <span class="kt-font-bold">@analise.ValorTotalCompra.ToString("c2")</span><br />
+                                        <small>@analise.QuantidadeEmCarteira.ToString("N0") @(analise.QuantidadeEmCarteira > 1 ? "ações" : "ação")</small>
+                                    </td>
+                                    <td class="text-nowrap text-right">
+                                        <span class="kt-font-success kt-font-bold">@analise.ObterValorTotalJurosDividendosEmReais()</span><br />
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-clean btn-sm btn-icon btn-icon-sm btn-datatables detalhar-acao" data-id-acao="@analise.IdConta" data-toggle="kt-tooltip" data-boundary="window" data-placement="top" data-original-title="Detalhar ativo"><span class="la la-search-plus"></span></button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 }

@@ -15,7 +15,7 @@ namespace JNogueira.Bufunfa.Api.ViewModels
         public string Nome { get; set; }
 
         /// <summary>
-        /// Tipo da conta (1 = conta-corrente, 2 = investimento)
+        /// Tipo da conta
         /// </summary>
         [EnumDataType(typeof(TipoConta), ErrorMessageResourceType = typeof(ContaMensagem), ErrorMessageResourceName = "Tipo_Invalido_Ou_Nao_Informado")]
         public TipoConta Tipo { get; set; }

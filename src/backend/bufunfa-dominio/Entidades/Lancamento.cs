@@ -40,6 +40,11 @@ namespace JNogueira.Bufunfa.Dominio.Entidades
         public int? IdParcela { get; private set; }
 
         /// <summary>
+        /// Id da nota de corretagem
+        /// </summary>
+        public int? IdNota { get; private set; }
+
+        /// <summary>
         /// Data do lançamento
         /// </summary>
         public DateTime Data { get; private set; }
@@ -116,6 +121,24 @@ namespace JNogueira.Bufunfa.Dominio.Entidades
             this.IdPessoa         = entrada.IdPessoa;
             this.Observacao       = entrada.Observacao;
             this.IdTransferencia  = idTransferencia;
+        }
+
+        internal Lancamento(
+            int idUsuario,
+            int idConta,
+            int idCategoria,
+            DateTime data,
+            decimal valor,
+            int? qtdRendaVariavel,
+            string observacao)
+        {
+            IdUsuario        = idUsuario;
+            IdConta          = idConta;
+            IdCategoria      = idCategoria;
+            Data             = data;
+            Valor            = valor;
+            QtdRendaVariavel = qtdRendaVariavel;
+            Observacao       = observacao;
         }
 
         public void Alterar(LancamentoEntrada entrada)

@@ -88,5 +88,11 @@
     "inputFiles": [
       "wwwroot/js/views/dashboard.js"
     ]
+  },
+  {
+    "outputFileName": "wwwroot/js/views/renda-variavel-ativos.min.js",
+    "inputFiles": [
+      "wwwroot/js/views/renda-variavel-ativos.js"
+    ]
   }
 ]

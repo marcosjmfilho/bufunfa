@@ -49,20 +49,12 @@ namespace JNogueira.Bufunfa.Dominio.Comandos
             Valor          = valor;
             Observacao     = observacao;
 
-            Validar();
-        }
-
-        private void Validar()
-        {
-            this
-                .NotificarSeMenorOuIgualA(this.IdUsuario, 0, Mensagem.Id_Usuario_Invalido)
+            this.NotificarSeMenorOuIgualA(this.IdUsuario, 0, Mensagem.Id_Usuario_Invalido)
                 .NotificarSeMenorOuIgualA(this.IdContaOrigem, 0, ContaMensagem.Id_Conta_Origem_Transferencia_Invalido)
                 .NotificarSeMenorOuIgualA(this.IdContaDestino, 0, ContaMensagem.Id_Conta_Destino_Transferencia_Invalido)
                 .NotificarSeMenorOuIgualA(this.Valor, 0, ContaMensagem.Valor_Transferencia_Invalido)
-                .NotificarSeMaiorQue(this.Data.Date, DateTime.Now.ConverterHorarioOficialBrasil().Date, ContaMensagem.Data_Transferencia_Invalida);
-
-            if (!string.IsNullOrEmpty(this.Observacao))
-                this.NotificarSePossuirTamanhoSuperiorA(this.Observacao, 500, ContaMensagem.Observacao_Transferencia_Tamanho_Maximo_Excedido);
+                .NotificarSeMaiorQue(this.Data.Date, DateTime.Now.ConverterHorarioOficialBrasil().Date, ContaMensagem.Data_Transferencia_Invalida)
+                .NotificarSeVerdadeiro(!string.IsNullOrEmpty(this.Observacao) && this.Observacao.Length > 500, ContaMensagem.Observacao_Transferencia_Tamanho_Maximo_Excedido);
         }
     }
 }

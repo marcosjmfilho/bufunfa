@@ -54,6 +54,6 @@ namespace JNogueira.Bufunfa.Dominio.Interfaces.Dados
         /// <summary>
         /// Deleta todos os lançamentos relacionados a uma conta.
         /// </summary>
-        void DeletarPorConta(int idConta);
+        Task DeletarPorConta(int idConta);
     }
 }

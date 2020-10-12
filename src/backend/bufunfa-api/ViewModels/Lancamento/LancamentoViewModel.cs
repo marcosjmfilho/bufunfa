@@ -11,13 +11,13 @@ namespace JNogueira.Bufunfa.Api.ViewModels
         /// <summary>
         /// Id da conta
         /// </summary>
-        [Required(ErrorMessageResourceType = typeof(LancamentoMensagem), ErrorMessageResourceName = "Id_Conta_Invalido")]
+        [Required(ErrorMessageResourceType = typeof(ContaMensagem), ErrorMessageResourceName = "Id_Conta_Invalido")]
         public int? IdConta { get; set; }
 
         /// <summary>
         /// Id da categoria
         /// </summary>
-        [Required(ErrorMessageResourceType = typeof(LancamentoMensagem), ErrorMessageResourceName = "Id_Categoria_Invalido")]
+        [Required(ErrorMessageResourceType = typeof(CategoriaMensagem), ErrorMessageResourceName = "Id_Categoria_Invalido")]
         public int? IdCategoria { get; set; }
 
         /// <summary>

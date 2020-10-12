@@ -26,13 +26,7 @@ namespace JNogueira.Bufunfa.Dominio.Comandos
             this.Titulo    = titulo;
             this.Url       = url?.ToLower();
 
-            this.Validar();
-        }
-
-        private void Validar()
-        {
-            this
-                .NotificarSeMenorOuIgualA(this.IdUsuario, 0, Mensagem.Id_Usuario_Invalido)
+            this.NotificarSeMenorOuIgualA(this.IdUsuario, 0, Mensagem.Id_Usuario_Invalido)
                 .NotificarSeNuloOuVazio(this.Titulo, AtalhoMensagem.Titulo_Obrigatorio_Nao_Informado)
                 .NotificarSeNuloOuVazio(this.Url, AtalhoMensagem.Url_Obrigatorio_Nao_Informado);
         }

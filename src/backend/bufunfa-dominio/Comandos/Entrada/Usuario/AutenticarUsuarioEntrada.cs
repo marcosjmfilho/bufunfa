@@ -23,12 +23,8 @@ namespace JNogueira.Bufunfa.Dominio.Comandos
         {
             this.Email = email;
             this.Senha = senha?.MD5();
-        }
 
-        public void Validar()
-        {
-            this
-                .NotificarSeNuloOuVazio(this.Email, UsuarioMensagem.Email_Obrigatorio_Nao_Informado)
+            this.NotificarSeNuloOuVazio(this.Email, UsuarioMensagem.Email_Obrigatorio_Nao_Informado)
                 .NotificarSeNuloOuVazio(this.Senha, UsuarioMensagem.Senha_Obrigatoria_Nao_Informada);
 
             if (!string.IsNullOrEmpty(this.Email))

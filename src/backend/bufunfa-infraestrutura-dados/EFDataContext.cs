@@ -17,6 +17,7 @@ namespace JNogueira.Bufunfa.Infraestrutura.Dados
         public DbSet<Lancamento> Lancamentos { get; set; }
         public DbSet<LancamentoAnexo> LancamentosAnexo { get; set; }
         public DbSet<LancamentoDetalhe> LancamentosDetalhe { get; set; }
+        public DbSet<NotaCorretagem> NotaCorretagem { get; set; }
         public DbSet<Parcela> Parcelas { get; set; }
         public DbSet<Periodo> Periodos { get; set; }
         public DbSet<Pessoa> Pessoas { get; set; }
@@ -44,6 +45,7 @@ namespace JNogueira.Bufunfa.Infraestrutura.Dados
             modelBuilder.ApplyConfiguration(new LancamentoAnexoMap());
             modelBuilder.ApplyConfiguration(new LancamentoDetalheMap());
             modelBuilder.ApplyConfiguration(new LancamentoMap());
+            modelBuilder.ApplyConfiguration(new NotaCorretagemMap());
             modelBuilder.ApplyConfiguration(new ParcelaMap());
             modelBuilder.ApplyConfiguration(new PeriodoMap());
             modelBuilder.ApplyConfiguration(new PessoaMap());

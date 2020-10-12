@@ -1,9 +1,7 @@
-﻿
-using JNogueira.Bufunfa.Dominio.Comandos;
+﻿using JNogueira.Bufunfa.Dominio.Comandos;
 using JNogueira.Bufunfa.Dominio.Entidades;
 using JNogueira.Bufunfa.Dominio.Interfaces.Comandos;
 using JNogueira.Bufunfa.Dominio.Interfaces.Dados;
-using JNogueira.Bufunfa.Dominio.Interfaces.Servicos;
 using JNogueira.Bufunfa.Dominio.Resources;
 using JNogueira.Bufunfa.Infraestrutura.Integracoes.AlphaVantage;
 using JNogueira.NotifiqueMe;
@@ -14,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace JNogueira.Bufunfa.Dominio.Servicos
 {
-    public class ContaServico : Notificavel, IContaServico
+    public class ContaServico : Notificavel
     {
         private readonly ApiAlphaVantageProxy _apiAlphaVantageProxy;
         private readonly IAgendamentoRepositorio _agendamentoRepositorio;
@@ -78,7 +76,7 @@ namespace JNogueira.Bufunfa.Dominio.Servicos
                 return new Saida(false, entrada.Mensagens, null);
 
             // Verifica se o usuário já possui alguma conta com o nome informado
-            this.NotificarSeVerdadeiro(await _contaRepositorio.VerificarExistenciaPorNome(entrada.IdUsuario, entrada.Nome), ContaMensagem.Conta_Com_Mesmo_Nome);
+            this.NotificarSeVerdadeiro(await _contaRepositorio.VerificarExistenciaPorNome(entrada.IdUsuario, entrada.Nome), entrada.Tipo == TipoConta.Acoes || entrada.Tipo == TipoConta.FII ? ContaMensagem.Ativo_Com_Mesmo_Codigo : ContaMensagem.Conta_Com_Mesmo_Nome);
 
             if (this.Invalido)
                 return new Saida(false, this.Mensagens, null);
@@ -89,7 +87,9 @@ namespace JNogueira.Bufunfa.Dominio.Servicos
 
             await _uow.Commit();
 
-            return new Saida(true, new[] { ContaMensagem.Conta_Cadastrada_Com_Sucesso }, new ContaSaida(conta, conta.ValorSaldoInicial));
+            return new Saida(true, new[] { entrada.Tipo == TipoConta.Acoes || entrada.Tipo == TipoConta.FII
+                ? ContaMensagem.Ativo_Cadastrado_Com_Sucesso
+                : ContaMensagem.Conta_Cadastrada_Com_Sucesso}, new ContaSaida(conta, conta.ValorSaldoInicial));
         }
 
         public async Task<ISaida> AlterarConta(int idConta, ContaEntrada entrada)
@@ -101,19 +101,19 @@ namespace JNogueira.Bufunfa.Dominio.Servicos
             var conta = await _contaRepositorio.ObterPorId(idConta);
 
             // Verifica se a conta existe
-            this.NotificarSeNulo(conta, string.Format(ContaMensagem.Id_Conta_Nao_Existe, idConta));
+            this.NotificarSeNulo(conta, entrada.Tipo == TipoConta.Acoes || entrada.Tipo == TipoConta.FII ? ContaMensagem.Id_Ativo_Nao_Existe : ContaMensagem.Id_Conta_Nao_Existe);
 
             if (this.Invalido)
                 return new Saida(false, this.Mensagens, null);
 
             // Verifica se a conta pertece ao usuário informado.
-            this.NotificarSeDiferentes(conta.IdUsuario, entrada.IdUsuario, ContaMensagem.Conta_Alterar_Nao_Pertence_Usuario);
+            this.NotificarSeDiferentes(conta.IdUsuario, entrada.IdUsuario, entrada.Tipo == TipoConta.Acoes || entrada.Tipo == TipoConta.FII ? ContaMensagem.Ativo_Alterar_Nao_Pertence_Usuario : ContaMensagem.Conta_Alterar_Nao_Pertence_Usuario);
 
             if (this.Invalido)
                 return new Saida(false, this.Mensagens, null);
 
             // Verifica se o usuário já possui alguma conta com o nome informado
-            this.NotificarSeVerdadeiro(await _contaRepositorio.VerificarExistenciaPorNome(entrada.IdUsuario, entrada.Nome, idConta), ContaMensagem.Conta_Com_Mesmo_Nome);
+            this.NotificarSeVerdadeiro(await _contaRepositorio.VerificarExistenciaPorNome(entrada.IdUsuario, entrada.Nome, idConta), entrada.Tipo == TipoConta.Acoes || entrada.Tipo == TipoConta.FII ? ContaMensagem.Ativo_Excluir_Nao_Pertence_Usuario : ContaMensagem.Conta_Excluir_Nao_Pertence_Usuario);
 
             if (this.Invalido)
                 return new Saida(false, this.Mensagens, null);
@@ -124,7 +124,9 @@ namespace JNogueira.Bufunfa.Dominio.Servicos
 
             await _uow.Commit();
 
-            return new Saida(true, new[] { ContaMensagem.Conta_Alterada_Com_Sucesso }, new ContaSaida(conta, await CalcularSaldoDisponivelAtual(conta)));
+            return new Saida(true, new[] { entrada.Tipo == TipoConta.Acoes || entrada.Tipo == TipoConta.FII
+                ? ContaMensagem.Ativo_Alterado_Com_Sucesso
+                : ContaMensagem.Conta_Alterada_Com_Sucesso}, new ContaSaida(conta, await CalcularSaldoDisponivelAtual(conta)));
         }
 
         public async Task<ISaida> ExcluirConta(int idConta, int idUsuario)
@@ -144,19 +146,19 @@ namespace JNogueira.Bufunfa.Dominio.Servicos
                 return new Saida(false, this.Mensagens, null);
 
             // Verifica se a conta pertece ao usuário informado.
-            this.NotificarSeDiferentes(conta.IdUsuario, idUsuario, ContaMensagem.Conta_Excluir_Nao_Pertence_Usuario);
+            this.NotificarSeDiferentes(conta.IdUsuario, idUsuario, conta.Tipo == TipoConta.Acoes || conta.Tipo == TipoConta.FII ? ContaMensagem.Ativo_Excluir_Nao_Pertence_Usuario : ContaMensagem.Conta_Excluir_Nao_Pertence_Usuario);
 
             if (this.Invalido)
                 return new Saida(false, this.Mensagens, null);
 
-            _lancamentoRepositorio.DeletarPorConta(idConta);
-            _agendamentoRepositorio.DeletarPorConta(idConta);
+            await _lancamentoRepositorio.DeletarPorConta(idConta);
+            await _agendamentoRepositorio.DeletarPorConta(idConta);
 
             _contaRepositorio.Deletar(conta);
 
             await _uow.Commit();
 
-            return new Saida(true, new[] { ContaMensagem.Conta_Excluida_Com_Sucesso }, new ContaSaida(conta));
+            return new Saida(true, new[] { conta.Tipo == TipoConta.Acoes || conta.Tipo == TipoConta.FII ? ContaMensagem.Ativo_Excluido_Com_Sucesso : ContaMensagem.Conta_Excluida_Com_Sucesso }, new ContaSaida(conta));
         }
 
         public async Task<ISaida> ObterAnaliseAtivo(int idConta, int idUsuario, decimal? valorCotacao = null)

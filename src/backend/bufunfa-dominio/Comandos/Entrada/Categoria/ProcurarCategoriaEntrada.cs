@@ -26,21 +26,9 @@ namespace JNogueira.Bufunfa.Dominio.Comandos
             Tipo           = tipo;
             Caminho        = caminho;
 
-            this.Validar();
-        }
-
-        private void Validar()
-        {
-            this.NotificarSeMenorOuIgualA(this.IdUsuario, 0, Mensagem.Id_Usuario_Invalido);
-
-            if (!string.IsNullOrEmpty(this.Nome))
-                this.NotificarSePossuirTamanhoSuperiorA(this.Nome, 100, CategoriaMensagem.Nome_Tamanho_Maximo_Excedido);
-
-            if (!string.IsNullOrEmpty(this.Tipo))
-                this.NotificarSeVerdadeiro(this.Tipo != "D" && this.Tipo != "C", CategoriaMensagem.Tipo_Invalido);
-
-            if (this.IdCategoriaPai.HasValue)
-                this.NotificarSeMenorQue(this.IdCategoriaPai.Value, 1, CategoriaMensagem.Id_Categoria_Pai_Invalido);
+            this.NotificarSeMenorOuIgualA(this.IdUsuario, 0, Mensagem.Id_Usuario_Invalido)
+                .NotificarSeVerdadeiro(!string.IsNullOrEmpty(this.Tipo) && this.Tipo != "D" && this.Tipo != "C", CategoriaMensagem.Tipo_Invalido)
+                .NotificarSeVerdadeiro(this.IdCategoriaPai.HasValue && this.IdCategoriaPai.Value < 1, CategoriaMensagem.Id_Categoria_Pai_Invalido);
         }
     }
 }

@@ -14,6 +14,15 @@ namespace JNogueira.Bufunfa.Dominio
     }
 
     /// <summary>
+    /// Tipo de negociação com ativos
+    /// </summary>
+    public static class TipoNegociacaoAtivo
+    {
+        public static readonly string Compra = "C";
+        public static readonly string Venda = "V";
+    }
+
+    /// <summary>
     /// Métodos de pagamento
     /// </summary>
     public enum MetodoPagamento
@@ -86,6 +95,10 @@ namespace JNogueira.Bufunfa.Dominio
         VendaAcoes = 6,
         [Description("Impostos")]
         Impostos = 7,
+        [Description("NOTA DE CORRETAGEM » Venda de ativos")]
+        NotaCorretagemVendaAtivos = 100,
+        [Description("NOTA DE CORRETAGEM » Compra de ativos")]
+        NotaCorretagemCompraAtivos = 101,
     }
 
     /// <summary>

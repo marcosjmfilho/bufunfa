@@ -672,7 +672,7 @@
     };
 
     var _informarValorCotacao = function (id) {
-        AppModal.exibirPorRota(App.corrigirPathRota("/contas/informar-valor-cotacao-por-acao?id=" + id), function () {
+        AppModal.exibirPorRota(App.corrigirPathRota("/renda-variavel/informar-valor-cotacao-por-acao?id=" + id), function () {
             $('#iValorCotacao').inputmask('decimal', {
                 radixPoint: ",",
                 groupSeparator: ".",
@@ -704,7 +704,7 @@
         if (valorCotacao == "" || valorCotacao == null || valorCotacao == undefined)
             valorCotacao = "0";
 
-        AppModal.exibirPorRota(App.corrigirPathRota("/contas/obter-analise-por-ativo?id=" + id + "&valorCotacao=" + valorCotacao.toString().replace(",", ".")), function () {
+        AppModal.exibirPorRota(App.corrigirPathRota("/renda-variavel/obter-analise-por-ativo?id=" + id + "&valorCotacao=" + valorCotacao.toString().replace(",", ".")), function () {
             KTApp.initTooltips();
             KTApp.initPortlets();
 

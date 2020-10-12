@@ -27,16 +27,7 @@ namespace JNogueira.Bufunfa.Dominio.Comandos
             Nome = nome;
             Data = data;
 
-            this.Validar();
-        }
-
-        private void Validar()
-        {
-            if (!string.IsNullOrEmpty(this.Nome))
-                this.NotificarSePossuirTamanhoSuperiorA(this.Nome, 50, PeriodoMensagem.Nome_Tamanho_Maximo_Excedido);
-
-            if (this.Data.HasValue)
-                this.NotificarSeMenorQue(this.Data.Value.Date, new DateTime(2015, 1, 1), string.Format(PeriodoMensagem.Periodo_Procura_Data_Invalida, new DateTime(2015, 1, 1).ToString("dd/MM/yyyy")));
+            this.NotificarSeVerdadeiro(this.Data.HasValue && this.Data.Value < new DateTime(2015, 1, 1), string.Format(PeriodoMensagem.Periodo_Procura_Data_Invalida, new DateTime(2015, 1, 1).ToString("dd/MM/yyyy")));
         }
     }
 

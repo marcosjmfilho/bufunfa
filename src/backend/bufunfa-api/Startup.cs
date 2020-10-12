@@ -2,7 +2,6 @@
 using JNogueira.Bufunfa.Api.Middlewares;
 using JNogueira.Bufunfa.Api.Swagger.Filters;
 using JNogueira.Bufunfa.Dominio.Interfaces.Dados;
-using JNogueira.Bufunfa.Dominio.Interfaces.Servicos;
 using JNogueira.Bufunfa.Dominio.Servicos;
 using JNogueira.Bufunfa.Infraestrutura;
 using JNogueira.Bufunfa.Infraestrutura.Dados;
@@ -54,7 +53,7 @@ namespace JNogueira.Bufunfa.Api
             // AddSingleton: instância configurada de forma que uma única referência das mesmas seja empregada durante todo o tempo em que a aplicação permanecer em execução
             services.AddSingleton(configHelper);
 
-            services.AddScoped<EfDataContext, EfDataContext>(x => new EfDataContext(configHelper.BancoDadosStringConnection));
+            services.AddScoped(_ => new EfDataContext(configHelper.BancoDadosStringConnection));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddScoped<IAgendamentoRepositorio, AgendamentoRepositorio>();
@@ -66,23 +65,25 @@ namespace JNogueira.Bufunfa.Api
             services.AddScoped<ILancamentoAnexoRepositorio, LancamentoAnexoRepositorio>();
             services.AddScoped<ILancamentoDetalheRepositorio, LancamentoDetalheRepositorio>();
             services.AddScoped<ILancamentoRepositorio, LancamentoRepositorio>();
+            services.AddScoped<INotaCorretagemRepositorio, NotaCorretagemRepositorio>();
             services.AddScoped<IParcelaRepositorio, ParcelaRepositorio>();
             services.AddScoped<IPeriodoRepositorio, PeriodoRepositorio>();
             services.AddScoped<IPessoaRepositorio, PessoaRepositorio>();
             services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
 
-            services.AddScoped<IAgendamentoServico, AgendamentoServico>();
-            services.AddScoped<IAtalhoServico, AtalhoServico>();
-            services.AddScoped<ICartaoCreditoServico, CartaoCreditoServico>();
-            services.AddScoped<ICategoriaServico, CategoriaServico>();
-            services.AddScoped<IContaServico, ContaServico>();
-            services.AddScoped<IGraficoServico, GraficoServico>();
-            services.AddScoped<ILancamentoServico, LancamentoServico>();
-            services.AddScoped<IPeriodoServico, PeriodoServico>();
-            services.AddScoped<IPessoaServico, PessoaServico>();
-            services.AddScoped<IUsuarioServico, UsuarioServico>();
+            services.AddScoped<AgendamentoServico>();
+            services.AddScoped<AtalhoServico>();
+            services.AddScoped<CartaoCreditoServico>();
+            services.AddScoped<CategoriaServico>();
+            services.AddScoped<ContaServico>();
+            services.AddScoped<GraficoServico>();
+            services.AddScoped<LancamentoServico>();
+            services.AddScoped<NotaCorretagemServico>();
+            services.AddScoped<PeriodoServico>();
+            services.AddScoped<PessoaServico>();
+            services.AddScoped<UsuarioServico>();
 
-            services.AddScoped<ApiAlphaVantageProxy, ApiAlphaVantageProxy>();
+            services.AddSingleton<ApiAlphaVantageProxy>();
 
             services
                 // AddAuthentication: especificará os schemas utilizados para a autenticação do tipo Bearer
@@ -159,13 +160,11 @@ namespace JNogueira.Bufunfa.Api
                     }
                 });
 
-                options.OperationFilter<AppendAuthorizeToSummaryOperationFilter>(); // Adds "(Auth)" to the summary so that you can see which endpoints have Authorization
-
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
 
                 options.ExampleFilters();
-                options.DocumentFilter<EnumDocumentFilter>();
+                options.DocumentFilter<EnumDocumentFilter>(); // <-- Filtro para alterar a forma que os valores de um enum são exibidos.
                 options.IncludeXmlComments(xmlPath);
                 options.EnableAnnotations();
             });
@@ -235,10 +234,7 @@ namespace JNogueira.Bufunfa.Api
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseEndpoints(endpoints => endpoints.MapControllers());
         }
     }
 }

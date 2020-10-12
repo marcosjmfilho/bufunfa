@@ -2,6 +2,7 @@
 using JNogueira.Bufunfa.Dominio.Entidades;
 using JNogueira.Bufunfa.Dominio.Interfaces.Dados;
 using Microsoft.EntityFrameworkCore;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -136,24 +137,12 @@ namespace JNogueira.Bufunfa.Infraestrutura.Dados.Repositorios
                    .ToListAsync();
         }
 
-        public async Task Inserir(Lancamento lancamento)
-        {
-            await _efContext.AddAsync(lancamento);
-        }
+        public async Task Inserir(Lancamento lancamento) => await _efContext.AddAsync(lancamento);
 
-        public void Atualizar(Lancamento lancamento)
-        {
-            _efContext.Entry(lancamento).State = EntityState.Modified;
-        }
+        public void Atualizar(Lancamento lancamento) => _efContext.Entry(lancamento).State = EntityState.Modified;
 
-        public void Deletar(Lancamento lancamento)
-        {
-            _efContext.Lancamentos.Remove(lancamento);
-        }
+        public void Deletar(Lancamento lancamento) => _efContext.Lancamentos.Remove(lancamento);
 
-        public void DeletarPorConta(int idConta)
-        {
-            _efContext.Lancamentos.RemoveRange(_efContext.Lancamentos.Where(x => x.IdConta == idConta));
-        }
+        public async Task DeletarPorConta(int idConta) => await _efContext.Database.ExecuteSqlRawAsync("DELETE FROM lancamento WHERE IdConta = @Id", new MySqlParameter { ParameterName = "Id", Value = idConta });
     }
 }

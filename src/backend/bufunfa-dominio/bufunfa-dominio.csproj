@@ -15,4 +15,136 @@
     <ProjectReference Include="..\bufunfa-infraestrutura\bufunfa-infraestrutura.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Resources\AgendamentoMensagem.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AgendamentoMensagem.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\AtalhoMensagem.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AtalhoMensagem.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\CartaoCreditoMensagem.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CartaoCreditoMensagem.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\CategoriaMensagem.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CategoriaMensagem.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\ContaMensagem.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ContaMensagem.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\LancamentoAnexoMensagem.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>LancamentoAnexoMensagem.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\LancamentoDetalheMensagem.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>LancamentoDetalheMensagem.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\LancamentoMensagem.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>LancamentoMensagem.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Mensagem.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Mensagem.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\NotaCorretagemMensagem.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>NotaCorretagemMensagem.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\ParcelaMensagem.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ParcelaMensagem.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\PeriodoMensagem.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>PeriodoMensagem.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\PessoaMensagem.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>PessoaMensagem.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\UsuarioMensagem.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>UsuarioMensagem.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\AgendamentoMensagem.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AgendamentoMensagem.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\AtalhoMensagem.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AtalhoMensagem.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\CartaoCreditoMensagem.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CartaoCreditoMensagem.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\CategoriaMensagem.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CategoriaMensagem.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\ContaMensagem.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ContaMensagem.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\LancamentoAnexoMensagem.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>LancamentoAnexoMensagem.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\LancamentoDetalheMensagem.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>LancamentoDetalheMensagem.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\LancamentoMensagem.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>LancamentoMensagem.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Mensagem.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Mensagem.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\NotaCorretagemMensagem.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>NotaCorretagemMensagem.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\ParcelaMensagem.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ParcelaMensagem.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\PeriodoMensagem.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>PeriodoMensagem.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\PessoaMensagem.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>PessoaMensagem.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\UsuarioMensagem.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>UsuarioMensagem.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>

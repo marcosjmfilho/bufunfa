@@ -45,17 +45,17 @@ namespace JNogueira.Bufunfa.Dominio.Comandos
             decimal valor,
             string observacao = null)
         {
-            this.Data = data;
-            this.Valor = valor;
+            this.Data       = data;
+            this.Valor      = valor;
             this.Observacao = observacao;
+
+            this.Validar();
         }
 
         private void Validar()
         {
-            this.NotificarSeMenorOuIgualA(this.IdUsuario, 0, Mensagem.Id_Usuario_Invalido);
-
-            if (!string.IsNullOrEmpty(this.Observacao))
-                this.NotificarSePossuirTamanhoSuperiorA(this.Observacao, 500, ParcelaMensagem.Observacao_Tamanho_Maximo_Excedido);
+            this.NotificarSeMenorOuIgualA(this.IdUsuario, 0, Mensagem.Id_Usuario_Invalido)
+                .NotificarSeVerdadeiro(!string.IsNullOrEmpty(this.Observacao) && this.Observacao.Length > 500, ParcelaMensagem.Observacao_Tamanho_Maximo_Excedido);
         }
     }
 }

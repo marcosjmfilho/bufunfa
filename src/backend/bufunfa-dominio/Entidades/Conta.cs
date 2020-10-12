@@ -60,13 +60,10 @@ namespace JNogueira.Bufunfa.Dominio.Entidades
         public Conta(ContaEntrada entrada)
             : this()
         {
-            if (entrada.Invalido)
-                return;
-
             this.IdUsuario         = entrada.IdUsuario;
             this.Nome              = entrada.Nome;
             this.Tipo              = entrada.Tipo;
-            this.ValorSaldoInicial = entrada.ValorSaldoInicial.HasValue && entrada.ValorSaldoInicial.Value == 0 ? null : entrada.ValorSaldoInicial;
+            this.ValorSaldoInicial = entrada.ValorSaldoInicial;
             this.NomeInstituicao   = entrada.NomeInstituicao;
             this.NumeroAgencia     = entrada.NumeroAgencia;
             this.Numero            = entrada.Numero;
@@ -75,9 +72,6 @@ namespace JNogueira.Bufunfa.Dominio.Entidades
 
         public void Alterar(ContaEntrada entrada)
         {
-            if (entrada.Invalido)
-                return;
-
             this.Nome              = entrada.Nome;
             this.Tipo              = entrada.Tipo;
             this.ValorSaldoInicial = entrada.ValorSaldoInicial;
